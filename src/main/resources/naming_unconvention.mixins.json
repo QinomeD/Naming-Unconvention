@@ -1,12 +1,13 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "qinomed.naming_unconvention.mixin",
+  "package": "qinomed.namingunconvention.mixin",
   "compatibilityLevel": "JAVA_8",
   "refmap": "namingunconvention.refmap.json",
   "mixins": [
   ],
   "client": [
+    "CreateWorldScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1
