@@ -7,7 +7,7 @@
   "mixins": [
   ],
   "client": [
-    "CreateWorldScreenMixin"
+    "GameTabMixin"
   ],
   "injectors": {
     "defaultRequire": 1
