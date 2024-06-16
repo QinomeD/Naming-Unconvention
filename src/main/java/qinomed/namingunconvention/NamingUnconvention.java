@@ -55,7 +55,7 @@ public class NamingUnconvention {
         public static void onKeyInput(InputEvent.Key event) {
             if (event.getKey() == RerollKeyBind.REROLL.getKey().getValue() && event.getAction() == 1) {
                 Minecraft mc = Minecraft.getInstance();
-                if (mc.screen instanceof CreateWorldScreen screen && screen.tabNavigationBar.tabs.get(0) instanceof CreateWorldScreen.GameTab gameTab) {
+                if (mc.screen instanceof CreateWorldScreen screen && screen.tabNavigationBar != null && screen.tabNavigationBar.tabs.get(0) instanceof CreateWorldScreen.GameTab gameTab) {
                     gameTab.nameEdit.setValue(generateRandomName());
                 }
             }
