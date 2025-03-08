@@ -1,13 +1,8 @@
 package qinomed.namingunconvention;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.worldselection.CreateWorldScreen;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.InputEvent;
-import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import java.io.IOException;
@@ -46,28 +41,5 @@ public class NamingUnconvention {
 
     private static String[] readFileLines(String filename) throws IOException {
         return Minecraft.getInstance().getResourceManager().getResourceOrThrow(new ResourceLocation(NamingUnconvention.MODID, filename)).openAsReader().lines().toArray(String[]::new);
-    }
-
-    @Mod.EventBusSubscriber(modid = MODID, value = Dist.CLIENT)
-    public static class ClientForgeEvents {
-
-        @SubscribeEvent
-        public static void onKeyInput(InputEvent.Key event) {
-            if (event.getKey() == RerollKeyBind.REROLL.getKey().getValue() && event.getAction() == 1) {
-                Minecraft mc = Minecraft.getInstance();
-                if (mc.screen instanceof CreateWorldScreen screen) {
-                    screen.nameEdit.setValue(generateRandomName());
-                }
-            }
-        }
-    }
-
-    @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-    public static class ClientModEvents {
-
-        @SubscribeEvent
-        public static void onKeyRegister(RegisterKeyMappingsEvent event) {
-            event.register(RerollKeyBind.REROLL);
-        }
     }
 }
