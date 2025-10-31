@@ -32,13 +32,13 @@ public abstract class CreateWorldScreenMixin {
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void randomName(Screen p_100861_, DataPackConfig p_100862_, WorldGenSettingsComponent p_100863_, CallbackInfo ci) {
-        this.initName = NamingUnconvention.generateRandomName();
+        this.initName = NamingUnconvention.RANDOM_NAME_GENERATOR.generateRandomName();
     }
 
     @Inject(method = "init", at = @At("TAIL"))
     private void addButton(CallbackInfo ci) {
-        this.rerollButton = this.addRenderableWidget(new ImageButton(this.nameEdit.x + 210, 60, 20, 20, 0, 0, 0, BTN_REROLL, 32, 32, (press) -> {
-            this.nameEdit.setValue(NamingUnconvention.generateRandomName());
+        this.rerollButton = this.addRenderableWidget(new ImageButton(this.nameEdit.x + 210, 60, 20, 20, 0, -20, 20, BTN_REROLL, 20, 40, (press) -> {
+            this.nameEdit.setValue(NamingUnconvention.RANDOM_NAME_GENERATOR.generateRandomName());
         }));
     }
 
