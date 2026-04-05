@@ -1,27 +1,16 @@
 package qinomed.namingunconvention;
 
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.fabricmc.api.ModInitializer;
 
-// The value here should match an entry in the META-INF/mods.toml file
-@Mod(NamingUnconvention.MODID)
-@Mod.EventBusSubscriber(value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
-public class NamingUnconvention {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-    // Define mod id in a common place for everything to reference
-    public static final String MODID = "naming_unconvention";
-    public static final RandomNameGenerator RANDOM_NAME_GENERATOR = new RandomNameGenerator();
+public class NamingUnconvention implements ModInitializer {
+	public static final String MOD_ID = "naming_unconvention";
+	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-    public NamingUnconvention() {
-        // Register ourselves for server and other game events we are interested in
-        MinecraftForge.EVENT_BUS.register(this);
-    }
-
-    @SubscribeEvent
-    public static void registerReloadListener(RegisterClientReloadListenersEvent event) {
-        event.registerReloadListener(RANDOM_NAME_GENERATOR);
-    }
+	@Override
+	public void onInitialize() {
+		//LOGGER.info("Hello Fabric world!");
+	}
 }
