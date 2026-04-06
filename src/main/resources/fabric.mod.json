@@ -12,7 +12,7 @@
 		"sources": "https://github.com/FabricMC/fabric-example-mod"
 	},
 	"license": "LGPL-3.0-or-later",
-	"icon": "assets/naming_unconvention/icon.png",
+	"icon": "",
 	"environment": "*",
 	"entrypoints": {
 		"main": [

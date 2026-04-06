@@ -3,7 +3,8 @@
 	"package": "qinomed.namingunconvention.mixin",
 	"compatibilityLevel": "JAVA_25",
 	"mixins": [
-		"GameTabMixin"
+		"MixinCreateWorldScreen",
+		"MixinCreateWorldScreenGameTab"
 	],
 	"injectors": {
 		"defaultRequire": 1

@@ -8,23 +8,14 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import qinomed.namingunconvention.RandomNameGenerator;
+import qinomed.namingunconvention.ICreateWorldScreenBridge;
 
 @Mixin(targets = "net.minecraft.client.gui.screens.worldselection.CreateWorldScreen$GameTab")
-public class GameTabMixin {
-  @Shadow
-  @Final
-  private EditBox nameEdit;
+public class MixinCreateWorldScreenGameTab {
+  @Shadow @Final private EditBox nameEdit;
 
-  public GameTabMixin(){
-
-  }
-
-  @Inject(
-      method ={"<init>"},
-      at = {@At("TAIL")}
-  )
-  private void randomName(CreateWorldScreen screen, CallbackInfo ci){
-    this.nameEdit.setValue(RandomNameGenerator.generateRandomName());
+  @Inject(method = {"<init>"}, at = {@At("TAIL")})
+  private void injectNameEdit(CreateWorldScreen helper, CallbackInfo ci){
+    ((ICreateWorldScreenBridge) helper).naming_unconvention$setNameEdit(this.nameEdit);
   }
 }
