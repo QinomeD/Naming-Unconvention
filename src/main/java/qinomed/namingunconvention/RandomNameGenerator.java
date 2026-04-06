@@ -32,7 +32,7 @@ public class RandomNameGenerator {
   private static String[] readFileLines(String filename) throws IOException{
     return Minecraft.getInstance()
         .getResourceManager()
-        .openAsReader(Identifier.fromNamespaceAndPath("naming_unconvention", filename))
+        .openAsReader(Identifier.fromNamespaceAndPath(NamingUnconvention.MOD_ID, filename))
         .lines().toArray(String[]::new);
   }
 }
