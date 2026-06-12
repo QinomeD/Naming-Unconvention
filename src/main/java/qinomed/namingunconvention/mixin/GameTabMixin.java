@@ -5,7 +5,6 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.components.tabs.GridLayoutTab;
-import net.minecraft.client.gui.layouts.GridLayout;
 import net.minecraft.client.gui.screens.worldselection.CreateWorldScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -16,7 +15,6 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import qinomed.namingunconvention.NamingUnconvention;
 
 import java.util.function.Consumer;
@@ -36,8 +34,8 @@ public class GameTabMixin extends GridLayoutTab{
         super(pTitle);
     }
 
-    @Inject(method = "<init>", at = @At("TAIL"), locals = LocalCapture.CAPTURE_FAILHARD)
-    private void randomName(CreateWorldScreen screen, CallbackInfo ci, GridLayout.RowHelper gridlayout$rowhelper1) {
+    @Inject(method = "<init>", at = @At("TAIL"))
+    private void randomName(CreateWorldScreen screen, CallbackInfo ci) {
         this.nameEdit.setValue(NamingUnconvention.RANDOM_NAME_GENERATOR.generateRandomName());
 
         this.rerollButton = new ImageButton(216 + this.nameEdit.getWidth() + 4, 66, 20, 20, 0, -20, 20, BTN_REROLL, 20, 40, (press) -> {
