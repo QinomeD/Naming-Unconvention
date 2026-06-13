@@ -15,6 +15,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import qinomed.namingunconvention.Config;
 import qinomed.namingunconvention.NamingUnconvention;
 
 import java.util.function.Consumer;
@@ -38,14 +39,18 @@ public class GameTabMixin extends GridLayoutTab{
     private void randomName(CreateWorldScreen screen, CallbackInfo ci) {
         this.nameEdit.setValue(NamingUnconvention.RANDOM_NAME_GENERATOR.generateRandomName());
 
-        this.rerollButton = new ImageButton(216 + this.nameEdit.getWidth() + 4, 66, 20, 20, 0, -20, 20, BTN_REROLL, 20, 40, (press) -> {
-            this.nameEdit.setValue(NamingUnconvention.RANDOM_NAME_GENERATOR.generateRandomName());
-        });
+        if (Config.BUTTON_ENABLED.get()) {
+            this.rerollButton = new ImageButton(220 + this.nameEdit.getWidth() + Config.X_OFFSET.get(), 66 + Config.Y_OFFSET.get(), 20, 20, 0, -20, 20, BTN_REROLL, 20, 40, (press) -> {
+                this.nameEdit.setValue(NamingUnconvention.RANDOM_NAME_GENERATOR.generateRandomName());
+            });
+        }
     }
 
     @Override
     public void visitChildren(Consumer<AbstractWidget> pConsumer) {
         super.visitChildren(pConsumer);
-        pConsumer.accept(rerollButton);
+        if (Config.BUTTON_ENABLED.get()) {
+            pConsumer.accept(rerollButton);
+        }
     }
 }
