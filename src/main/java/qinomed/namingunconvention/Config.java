@@ -12,6 +12,7 @@ public class Config {
     public static ForgeConfigSpec.ConfigValue<Integer> Y_OFFSET;
 
     public Config(ForgeConfigSpec.Builder builder) {
+        builder.comment(" Reroll button");
         BUTTON_ENABLED = builder.define("buttonEnabled", true);
         X_OFFSET = builder.define("buttonXOffset", 0);
         Y_OFFSET = builder.define("buttonYOffset", 0);
