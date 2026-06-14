@@ -53,8 +53,6 @@ public class GameTabMixin extends GridLayoutTab{
         }
     }
 
-
-
     @Override
     public void visitChildren(Consumer<AbstractWidget> pConsumer) {
         super.visitChildren(pConsumer);
