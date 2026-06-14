@@ -20,9 +20,6 @@ import java.util.function.Consumer;
 @Mixin(CreateWorldScreen.GameTab.class)
 public class GameTabMixin extends GridLayoutTab{
     @Unique
-    private ResourceLocation BTN_REROLL = ResourceLocation.fromNamespaceAndPath(NamingUnconvention.MODID, "textures/reroll.png");
-
-    @Unique
     private WidgetSprites rerollButtonSprite = new WidgetSprites(
             ResourceLocation.fromNamespaceAndPath(NamingUnconvention.MODID, "reroll"),
             ResourceLocation.fromNamespaceAndPath(NamingUnconvention.MODID, "reroll_focused")
