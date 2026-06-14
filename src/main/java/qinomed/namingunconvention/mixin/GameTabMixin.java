@@ -40,9 +40,11 @@ public class GameTabMixin extends GridLayoutTab{
         this.nameEdit.setValue(NamingUnconvention.RANDOM_NAME_GENERATOR.generateRandomName());
 
         if (Config.BUTTON_ENABLED.get()) {
-            this.rerollButton = new ImageButton(220 + this.nameEdit.getWidth() + Config.X_OFFSET.get(), 66 + Config.Y_OFFSET.get(), 20, 20, 0, -20, 20, BTN_REROLL, 20, 40, (press) -> {
-                this.nameEdit.setValue(NamingUnconvention.RANDOM_NAME_GENERATOR.generateRandomName());
-            });
+            this.rerollButton = new ImageButton(
+                    0, 0, // to be repositioned in CreateWorldScreenMixin
+                    20, 20, 0, -20, 20, BTN_REROLL, 20, 40,
+                    (press) -> this.nameEdit.setValue(NamingUnconvention.RANDOM_NAME_GENERATOR.generateRandomName())
+            );
         }
     }
 
