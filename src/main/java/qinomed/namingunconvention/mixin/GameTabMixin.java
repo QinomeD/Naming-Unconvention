@@ -1,9 +1,6 @@
 package qinomed.namingunconvention.mixin;
 
-import net.minecraft.client.gui.components.AbstractWidget;
-import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.components.EditBox;
-import net.minecraft.client.gui.components.ImageButton;
+import net.minecraft.client.gui.components.*;
 import net.minecraft.client.gui.components.tabs.GridLayoutTab;
 import net.minecraft.client.gui.screens.worldselection.CreateWorldScreen;
 import net.minecraft.network.chat.Component;
@@ -23,10 +20,13 @@ import java.util.function.Consumer;
 @Mixin(CreateWorldScreen.GameTab.class)
 public class GameTabMixin extends GridLayoutTab{
     @Unique
-    private ResourceLocation BTN_REROLL = new ResourceLocation(NamingUnconvention.MODID, "textures/reroll.png");
+    private WidgetSprites rerollButtonSprite = new WidgetSprites(
+            ResourceLocation.fromNamespaceAndPath(NamingUnconvention.MODID, "reroll"),
+            ResourceLocation.fromNamespaceAndPath(NamingUnconvention.MODID, "reroll_focused")
+    );
 
     @Shadow @Final
-    public EditBox nameEdit;
+    private EditBox nameEdit;
 
     @Unique
     private Button rerollButton;
@@ -40,9 +40,14 @@ public class GameTabMixin extends GridLayoutTab{
         this.nameEdit.setValue(NamingUnconvention.RANDOM_NAME_GENERATOR.generateRandomName());
 
         if (Config.BUTTON_ENABLED.get()) {
+            /*this.rerollButton = new ImageButton(220 + this.nameEdit.getWidth() + Config.X_OFFSET.get(), 66 + Config.Y_OFFSET.get(), 20, 20, 0, -20, 20, BTN_REROLL, 20, 40, (press) -> {
+                this.nameEdit.setValue(NamingUnconvention.RANDOM_NAME_GENERATOR.generateRandomName());
+            });*/
+
             this.rerollButton = new ImageButton(
                     0, 0, // to be repositioned in CreateWorldScreenMixin
-                    20, 20, 0, -20, 20, BTN_REROLL, 20, 40,
+                    20, 20,
+                    rerollButtonSprite,
                     (press) -> this.nameEdit.setValue(NamingUnconvention.RANDOM_NAME_GENERATOR.generateRandomName())
             );
         }

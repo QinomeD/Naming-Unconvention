@@ -35,6 +35,6 @@ public class RandomNameGenerator implements ResourceManagerReloadListener {
     }
 
     private static String[] readFileLines(String filename, ResourceManager resourceManager) throws IOException {
-        return resourceManager.getResourceOrThrow(new ResourceLocation(NamingUnconvention.MODID, filename)).openAsReader().lines().toArray(String[]::new);
+        return resourceManager.getResourceOrThrow(ResourceLocation.fromNamespaceAndPath(NamingUnconvention.MODID, filename)).openAsReader().lines().toArray(String[]::new);
     }
 }

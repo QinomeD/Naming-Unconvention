@@ -1,31 +1,28 @@
 package qinomed.namingunconvention;
 
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
+import fuzs.forgeconfigapiport.fabric.api.neoforge.v4.NeoForgeConfigRegistry;
+import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.PackType;
+import net.neoforged.fml.config.ModConfig;
 
-// The value here should match an entry in the META-INF/mods.toml file
-@Mod(NamingUnconvention.MODID)
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-public class NamingUnconvention {
+public class NamingUnconvention implements ClientModInitializer {
 
-    // Define mod id in a common place for everything to reference
-    public static final String MODID = "naming_unconvention";
-    public static final RandomNameGenerator RANDOM_NAME_GENERATOR = new RandomNameGenerator();
+    public static String MODID = "naming_unconvention";
+    public static RandomNameGenerator RANDOM_NAME_GENERATOR = new RandomNameFabric();
 
-    public NamingUnconvention() {
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.SPEC);
-
-        // Register ourselves for server and other game events we are interested in
-        MinecraftForge.EVENT_BUS.register(this);
+    @Override
+    public void onInitializeClient() {
+        NeoForgeConfigRegistry.INSTANCE.register(MODID, ModConfig.Type.CLIENT,Config.SPEC);
+        ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener((IdentifiableResourceReloadListener) RANDOM_NAME_GENERATOR);
     }
 
-    @SubscribeEvent
-    public static void registerReloadListener(RegisterClientReloadListenersEvent event) {
-        event.registerReloadListener(RANDOM_NAME_GENERATOR);
+    private static class RandomNameFabric extends RandomNameGenerator implements IdentifiableResourceReloadListener {
+        @Override
+        public ResourceLocation getFabricId() {
+            return ResourceLocation.fromNamespaceAndPath(MODID, "resources");
+        }
     }
 }

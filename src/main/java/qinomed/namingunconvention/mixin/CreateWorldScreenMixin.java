@@ -33,7 +33,7 @@ public class CreateWorldScreenMixin extends Screen {
         if (Config.BUTTON_ENABLED.get() && tabManager.getCurrentTab() instanceof CreateWorldScreen.GameTab) {
             EditBox nameEdit = (EditBox) this.children().get(4);
 
-            ((ImageButton) this.children().get(this.children().size() - 1)).setPosition(
+            ((ImageButton) this.children().getLast()).setPosition(
                     nameEdit.getX() + nameEdit.getWidth() + 4 + Config.X_OFFSET.get(),
                     nameEdit.getY() + Config.Y_OFFSET.get()
             );
